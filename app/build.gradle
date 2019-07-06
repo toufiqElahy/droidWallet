@@ -17,20 +17,16 @@ repositories {
 
 
 android {
-    flavorDimensions "default"//
-
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.agld.mw"//"com.android.sample.wallet"
+        applicationId "com.agld.mw"
         minSdkVersion 26
         targetSdkVersion 26
         versionCode 1
-        versionName "1"//"1.0.11"
+        versionName "1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
-
-        setProperty("archivesBaseName", "CWSampleApp-" + versionName)//
     }
     buildTypes {
         release {
@@ -49,58 +45,7 @@ android {
         //exclude 'META-INF/notice.txt'
         //exclude 'META-INF/license'
         //exclude 'META-INF/license.txt'
-
-        exclude 'lib/x86_64/darwin/libscrypt.dylib'
-        exclude 'lib/x86_64/freebsd/libscrypt.so'
-        exclude 'lib/x86_64/linux/libscrypt.so'
-        exclude 'META-INF/spring.tooling'
-        exclude 'META-INF/spring.handlers'
-        exclude 'META-INF/spring.schemas'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'version.properties'
-
     }
-
-    signingConfigs {
-        debug {
-            storeFile file('signature/debug.jks')
-        }
-        release {
-            storeFile file(System.getenv("KEYSTORE") ?: "keystore.jks")
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-            keyAlias System.getenv("KEY_ALIAS")
-            keyPassword System.getenv("KEY_PASSWORD")
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-        }
-        debug {
-            minifyEnabled false
-            debuggable true
-            signingConfig signingConfigs.debug
-        }
-    }
-
-    productFlavors {
-        develop {
-            versionCode = 1
-        }
-
-        plm {
-            versionCode = 2
-        }
-
-        partner {
-            versionCode = 3
-        }
-
-    }
-
     lintOptions {
         abortOnError false
     }
@@ -123,15 +68,6 @@ project.ext {
 }
 
 dependencies {
-    repositories {
-        flatDir {
-            dirs 'aar'
-        }
-    }
-    implementation 'com.samsung.android.sdk.coldwallet:clientsdk-release@aar'//
-    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'//
-
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Etherium client
     implementation "org.web3j:core:$project.web3jVersion"
     implementation "org.ethereum:geth:$project.gethVersion"
