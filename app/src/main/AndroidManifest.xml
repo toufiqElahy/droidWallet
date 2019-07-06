@@ -72,6 +72,8 @@
         <activity
             android:name=".ui.GasSettingsActivity"
             android:label="@string/title_send_settings" />
+
+        <meta-data android:name="scw_app_id" android:value="" />
     </application>
 
 </manifest>

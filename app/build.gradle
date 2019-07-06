@@ -68,6 +68,12 @@ project.ext {
 }
 
 dependencies {
+    repositories {
+        flatDir{
+            dirs 'aar'
+        }
+    }
+    implementation 'com.samsung.android.sdk.coldwallet:KeystoreSDK_v1.0.0@aar'
     // Etherium client
     implementation "org.web3j:core:$project.web3jVersion"
     implementation "org.ethereum:geth:$project.gethVersion"
