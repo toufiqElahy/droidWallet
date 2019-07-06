@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AbstractCWSampleActivity"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[RESULT]"
+                />
+
+            <TextView
+                android:id="@+id/callback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="callback" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/checkInitWallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CHECK STATUS"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="32dp" />
+
+                <Button
+                    android:id="@+id/goWallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JUMP to BKS"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="32dp" />
+
+                <Button
+                    android:id="@+id/goDeeplink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="deeplink"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="32dp" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/get_supported_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GET SUPPORTED COINS" />
+
+            <Button
+                android:id="@+id/check_app_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHECK APP VERSION" />
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Index : "/>
+                <TextView
+                    android:id="@+id/tv_index"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+                <Button
+                    android:id="@+id/btn_idx_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="actionUpIndex"
+                    android:text="UP"/>
+                <Button
+                    android:id="@+id/btn_idx_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="actionDownIndex"
+                    android:text="DOWN"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PubKey : "/>
+                <TextView
+                    android:id="@+id/tv_ext_public_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chain Code : "/>
+                <TextView
+                    android:id="@+id/tv_chain_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_eth_address"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ETH Address : "/>
+                <TextView
+                    android:id="@+id/tv_public_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text="" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/getXPubKey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GET XPUB KEY"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="32dp" />
+
+                <Button
+                    android:id="@+id/getXPubKeyList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GET XPUB KEY LIST"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="32dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/showBTCTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="actionShowBTCTest"
+                android:visibility="gone"
+                android:text="SHOW BTC TEST"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_eth_test"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:text="Amount to send : "/>
+                    <EditText
+                        android:id="@+id/et_eth_value"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text="0.01" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ETH"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gas Price : "/>
+
+                    <EditText
+                        android:id="@+id/et_eth_gas_price"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberSigned"
+                        android:text="22000000000" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="WEI"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gas Limit : "/>
+
+                    <EditText
+                        android:id="@+id/et_eth_gas_limit"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberSigned"
+                        android:text="6700000" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="GAS"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:text="MAX FEE : "/>
+
+                    <TextView
+                        android:id="@+id/tv_maximum_fee"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ETH"/>
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unsigned Raw Transaction Result :"/>
+
+                <TextView
+                    android:id="@+id/tv_unsigned_raw_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="2"
+                    android:text=""/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Raw Transaction Result :"/>
+
+                <TextView
+                    android:id="@+id/tv_raw_transaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minLines="3"
+                    android:text=""/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/signEth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sign ETH TX"
+                        android:onClick="actionSignETH" />
+                    <Button
+                        android:id="@+id/showEthBlance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:text="Show ETH Balance" />
+                    <Button
+                        android:id="@+id/sendEthTx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:text="Send ETH Tx" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Token Amount : "/>
+
+                    <EditText
+                        android:id="@+id/tokenAmount"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:text="0.01" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Token Type"/>
+                    <Button
+                        android:id="@+id/getOmisego"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OMG" />
+                    <Button
+                        android:id="@+id/getUnknownToken"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unknown20" />
+
+                    <Button
+                        android:id="@+id/get721token"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ERC721" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Contract Address : "/>
+
+                    <EditText
+                        android:id="@+id/contractAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0xd26114cd6EE289AccF82350c8d8487fedB8A0C07" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/createAndSignEthData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="actionSignETH"
+                        android:tag="GENERATE_AND_SIGN_DATA"
+                        android:text="Create Data and Sign" />
+
+                    <Button
+                        android:id="@+id/signEthData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="actionSignETH"
+                        android:tag="SIGN_DATA"
+                        android:text="Sign ETH DATA TX" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Message : "/>
+
+                <EditText
+                    android:id="@+id/et_unsigned_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:text="To avoid digital cat burglars, sign below to authenticate with CryptoKitties." />
+
+                <Button
+                    android:id="@+id/signBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="actionSignPersonalMsg"
+                    android:text="Sign MSG" />
+
+                <TextView
+                    android:id="@+id/tv_signed_message"
+                    android:background="#eeeeee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/partnerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Partner CertiFingerprint and AppVersion"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/partnerBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="enter"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" packagename : "/>
+
+                    <EditText
+                        android:id="@+id/partnerEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CertiFingerprint : "/>
+
+                    <TextView
+                        android:id="@+id/partnerCerti"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Version : "/>
+
+                    <TextView
+                        android:id="@+id/partnerVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

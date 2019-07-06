@@ -128,6 +128,8 @@ dependencies {
             dirs 'aar'
         }
     }
+    implementation 'com.samsung.android.sdk.coldwallet:clientsdk-release@aar'//
+    implementation 'org.bitcoinj:bitcoinj-core:0.14.7'//
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Etherium client
