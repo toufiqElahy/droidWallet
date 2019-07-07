@@ -3,6 +3,7 @@ package com.wallet.crypto.trustapp.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wallet.crypto.trustapp.entity.ServiceException;
 import com.wallet.crypto.trustapp.entity.Wallet;
+import com.wallet.crypto.trustapp.util.WalletUtil;
 
 import org.ethereum.geth.Accounts;
 import org.ethereum.geth.Address;
@@ -127,14 +128,14 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     @Override
     public Single<Wallet[]> fetchAccounts() {
         return Single.fromCallable(() -> {
-            Accounts accounts = keyStore.getAccounts();
-            int len = (int) accounts.size();
-            Wallet[] result = new Wallet[len];
-
-            for (int i = 0; i < len; i++) {
-                org.ethereum.geth.Account gethAccount = accounts.get(i);
-                result[i] = new Wallet(gethAccount.getAddress().getHex().toLowerCase());
-            }
+//            Accounts accounts = keyStore.getAccounts();
+//            int len = (int) accounts.size();
+            Wallet[] result = new Wallet[1];
+            result[0]=new Wallet(WalletUtil.addr);
+//            for (int i = 0; i < len; i++) {
+//                org.ethereum.geth.Account gethAccount = accounts.get(i);
+//                result[i] = new Wallet(gethAccount.getAddress().getHex().toLowerCase());
+//            }
             return result;
         })
                 .subscribeOn(Schedulers.io());

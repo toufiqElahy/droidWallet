@@ -41,10 +41,10 @@ public class SettingsFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.fragment_settings);
         final Preference wallets = findPreference("pref_wallet");
 
-        wallets.setOnPreferenceClickListener(preference -> {
-            manageWalletsRouter.open(getActivity(), false);
-            return false;
-        });
+//        wallets.setOnPreferenceClickListener(preference -> {
+//            manageWalletsRouter.open(getActivity(), false);
+//            return false;
+//        });
 
         findDefaultWalletInteract
                 .find()
