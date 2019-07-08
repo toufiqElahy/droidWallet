@@ -117,7 +117,7 @@ public class SplashActivity extends AppCompatActivity {
                                 //handle errors
                             }
                         };
-                String hdpath1 = "m/44'/60'";
+                String hdpath1 = WalletUtil.hdPath;
 
                 ArrayList<String> hdPathList = new ArrayList<>();
                 hdPathList.add(hdpath1);

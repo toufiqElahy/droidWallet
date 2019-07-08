@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.samsung.android.sdk.coldwallet.ScwService;
 import com.wallet.crypto.trustapp.C;
@@ -37,6 +38,7 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.http.HttpService;
 
 import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -164,40 +166,26 @@ public class ConfirmationActivity extends BaseActivity {
         return finalHex;
     }
 
+    protected BigInteger getNonce(String address) {
+        try {
+            final Web3j web3j = Web3jFactory.build(new HttpService(WalletUtil.rpcServerUrl));
+
+            EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
+                    address, DefaultBlockParameterName.PENDING).sendAsync().get();
+
+            return ethGetTransactionCount.getTransactionCount();
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();  // set interrupt flag
+            System.out.println("Failed to compute sum");
+            return null;
+        }
+    }
+
     private void onSend() {
         GasSettings gasSettings = viewModel.gasSettings().getValue();
+        BigInteger nonce = getNonce(WalletUtil.addr);//.add(BigInteger.valueOf(1));
 
-        if (WalletUtil.signedEthTransaction != null) {
-            if (!confirmationForTokenTransfer) {
-                viewModel.createTransaction(
-                        fromAddressText.getText().toString(),
-                        toAddressText.getText().toString(),
-                        amount,
-                        gasSettings.gasPrice,
-                        gasSettings.gasLimit);
-            } else {
-                viewModel.createTokenTransfer(
-                        fromAddressText.getText().toString(),
-                        toAddressText.getText().toString(),
-                        contractAddress,
-                        amount,
-                        gasSettings.gasPrice,
-                        gasSettings.gasLimit);
-            }
-
-        } else {
-
-        ////}
-//            final Web3j web3j = Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
-//
-//
-//                EthGetTransactionCount ethGetTransactionCount = web3j
-//                        .ethGetTransactionCount(WalletUtil.addr, DefaultBlockParameterName.LATEST)
-//                        .send();
-//                BigInteger sb= ethGetTransactionCount.getTransactionCount();
-//
-
-        BigInteger noce = new BigInteger("1");  //nonce issue
+          //nonce issue
 //            double ethValue = Double.valueOf(mValueEditText.getText().toString());
 //            BigDecimal weiValue = BigDecimal.valueOf(ethValue).multiply(BigDecimal.valueOf(1, -18));
 //            BigInteger gasPrice = new BigInteger(mGasPriceEditText.getText().toString());
@@ -205,11 +193,12 @@ public class ConfirmationActivity extends BaseActivity {
 //            Log.d(TAG, "GP : " + gasPrice.toString() + " GL : " + gasLimit.toString());
 //            String data = "0xb69ef8a8";
         String to = !confirmationForTokenTransfer == true ? toAddressText.getText().toString() : contractAddress;
+        final byte[] data = TokenRepository.createTokenTransferData(toAddressText.getText().toString(), amount);
         amount = !confirmationForTokenTransfer == true ? amount : BigInteger.valueOf(0);
 
-        final byte[] data = TokenRepository.createTokenTransferData(to, amount);
+
         String dt = !confirmationForTokenTransfer == true ? "" : bytesToHex(data);
-        RawTransaction rawTrx = RawTransaction.createTransaction(noce, gasSettings.gasPrice, gasSettings.gasLimit, to, amount, dt);
+        RawTransaction rawTrx = RawTransaction.createTransaction(nonce, gasSettings.gasPrice, gasSettings.gasLimit, to, amount, dt);
 
         byte[] encodedUnsignedEthTx = TransactionEncoder.encode(rawTrx);
 
@@ -220,17 +209,35 @@ public class ConfirmationActivity extends BaseActivity {
                     public void onSuccess(byte[] signedEthTransaction) {
                         //signedEthTransaction = signedEthTransaction;
                         WalletUtil.signedEthTransaction = signedEthTransaction;
+                        if (!confirmationForTokenTransfer) {
+                            viewModel.createTransaction(
+                                    fromAddressText.getText().toString(),
+                                    toAddressText.getText().toString(),
+                                    amount,
+                                    gasSettings.gasPrice,
+                                    gasSettings.gasLimit);
+                        } else {
+                            viewModel.createTokenTransfer(
+                                    fromAddressText.getText().toString(),
+                                    toAddressText.getText().toString(),
+                                    contractAddress,
+                                    amount,
+                                    gasSettings.gasPrice,
+                                    gasSettings.gasLimit);
+                        }
                     }
 
                     @Override
                     public void onFailure(int errorCode) {
                         //handle error
+                        Toast.makeText(ConfirmationActivity.this, "Confirmation Failed!",
+                                Toast.LENGTH_LONG).show();
                         WalletUtil.signedEthTransaction = null;
                     }
                 };
-        String hdPath = "m/44'/60'";//"m/44'/60'/0'/0/0";
+        String hdPath = WalletUtil.hdPath;//"m/44'/60'/0'/0/0";
         ScwService.getInstance().signEthTransaction(callback, encodedUnsignedEthTx, hdPath);
-    }
+
     }
 
     private void onDefaultWallet(Wallet wallet) {

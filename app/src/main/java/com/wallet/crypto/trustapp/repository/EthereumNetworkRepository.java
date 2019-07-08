@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
 import com.wallet.crypto.trustapp.entity.Ticker;
 import com.wallet.crypto.trustapp.service.TickerService;
+import com.wallet.crypto.trustapp.util.WalletUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -81,6 +82,7 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
 		for (OnNetworkChangeListener listener : onNetworkChangedListeners) {
 		    listener.onNetworkChanged(networkInfo);
         }
+		WalletUtil.rpcServerUrl=defaultNetwork.rpcServerUrl;
 	}
 
 	@Override
