@@ -39,6 +39,17 @@ public class SplashActivity extends AppCompatActivity {
     SplashViewModelFactory splashViewModelFactory;
     SplashViewModel splashViewModel;
 
+    private void ScwDeepLinkGALAXY_STORE() {
+        Uri uri = Uri.parse(ScwDeepLink.GALAXY_STORE);
+        Intent displayIntent = new Intent(Intent.ACTION_VIEW, uri);
+        displayIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private void ScwDeepLinkMain() {
         Uri uri = Uri.parse(ScwDeepLink.MAIN);
         Intent displayIntent = new Intent(Intent.ACTION_VIEW, uri);
@@ -59,8 +70,12 @@ public class SplashActivity extends AppCompatActivity {
 
         ScwService scwServiceInstance = ScwService.getInstance();
 
-//        int keystoreApiLevel = scwServiceInstance.getKeystoreApiLevel();
-//        boolean isKeystoreApiSupported = keystoreApiLevel > 0;
+        int keystoreApiLevel = scwServiceInstance.getKeystoreApiLevel();
+        boolean isKeystoreApiSupported = keystoreApiLevel > 0;
+        if(!isKeystoreApiSupported){
+            ScwDeepLinkGALAXY_STORE();
+        }
+
 
         String seedHash = scwServiceInstance.getSeedHash();
         boolean initialized = (seedHash != null && seedHash.length() > 0);

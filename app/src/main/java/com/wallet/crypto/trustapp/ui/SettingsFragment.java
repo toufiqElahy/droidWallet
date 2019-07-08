@@ -12,6 +12,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import com.samsung.android.sdk.coldwallet.ScwDeepLink;
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
@@ -32,6 +33,17 @@ public class SettingsFragment extends PreferenceFragment
     @Inject
     ManageWalletsRouter manageWalletsRouter;
 
+    private void ScwDeepLinkMain() {
+        Uri uri = Uri.parse(ScwDeepLink.MAIN);
+        Intent displayIntent = new Intent(Intent.ACTION_VIEW, uri);
+        displayIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
@@ -41,10 +53,11 @@ public class SettingsFragment extends PreferenceFragment
         addPreferencesFromResource(R.xml.fragment_settings);
         final Preference wallets = findPreference("pref_wallet");
 
-//        wallets.setOnPreferenceClickListener(preference -> {
-//            manageWalletsRouter.open(getActivity(), false);
-//            return false;
-//        });
+        wallets.setOnPreferenceClickListener(preference -> {
+            //manageWalletsRouter.open(getActivity(), false);
+            ScwDeepLinkMain();
+            return false;
+        });
 
         findDefaultWalletInteract
                 .find()
