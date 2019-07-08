@@ -51,7 +51,7 @@ public class TrustPasswordStore implements PasswordStore {
 	public Single<String> getPassword(Wallet wallet) {
 		return Single.fromCallable(() -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                return new String(KS.get(context, wallet.address));
+                return new String("");//KS.get(context, wallet.address));
             } else {
                 try {
                     return PasswordManager.getPassword(wallet.address, context);

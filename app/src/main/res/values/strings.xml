@@ -18,6 +18,7 @@
     <!-- String related to sending -->
     <string name="prompt_to">To</string>
     <string name="action_send">Send</string>
+    <string name="action_confirm">Confirm And Send</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
