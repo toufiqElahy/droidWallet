@@ -5,7 +5,7 @@
 
 ### Android ###
 # Built application files
-#*.apk
+*.apk
 *.ap_
 *.iml
 *.swp
@@ -24,6 +24,7 @@ gen/
 # Gradle files
 .gradle/
 /build
+app/release
 
 # Fastlane
 fastlane/report.xml
