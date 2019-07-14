@@ -55,7 +55,7 @@ public class SettingsFragment extends PreferenceFragment
 
         wallets.setOnPreferenceClickListener(preference -> {
             //manageWalletsRouter.open(getActivity(), false);
-            ScwDeepLinkMain();
+            //ScwDeepLinkMain();
             return false;
         });
 

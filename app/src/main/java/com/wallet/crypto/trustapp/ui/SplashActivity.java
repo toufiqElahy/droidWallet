@@ -18,6 +18,7 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.samsung.android.sdk.coldwallet.*;
 import com.wallet.crypto.trustapp.BuildConfig;
+import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.router.ManageWalletsRouter;
 import com.wallet.crypto.trustapp.router.TransactionsRouter;
@@ -69,10 +70,17 @@ public class SplashActivity extends AppCompatActivity {
         WalletUtil.addr = txt;//"0x61A4660b9A48337b9e245a0Ec11E618fB44eB0Ff";
 
         ScwService scwServiceInstance = ScwService.getInstance();
+        if(scwServiceInstance==null){
+
+            finish();
+            Toast.makeText(this, "Device Not Supported.", Toast.LENGTH_LONG).show();
+            System.exit(0);
+            return;
+        }
 
         int keystoreApiLevel = scwServiceInstance.getKeystoreApiLevel();
         boolean isKeystoreApiSupported = keystoreApiLevel > 0;
-        if(!isKeystoreApiSupported){
+        if(!isKeystoreApiSupported){//update
             ScwDeepLinkGALAXY_STORE();
         }
 
